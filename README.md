@@ -1,3 +1,5 @@
+<img src="logo-readme.png" alt="Logo Skyloop" width="120">
+
 # Skyloop
 
 Skyloop is a small 2D arcade game made with Lua and LÖVE. Pilot your jet, dodge asteroids, and try to get the highest score
