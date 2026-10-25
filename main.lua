@@ -11,6 +11,8 @@ local asteroids = {}
 local spawnTimer = 0
 local score = 0
 
+local gameOver = false
+
 local function spawnAsteroid()
     local image = asteroidImages[love.math.random(#asteroidImages)]
     local size = love.math.random(40, 75)
@@ -27,6 +29,18 @@ local function spawnAsteroid()
         rotationSpeed = (love.math.random() - 0.5) * 2
     })
 end
+
+function love.keypressed(key)
+    if key == "space" and gameOver then
+        gameOver = false
+        score = 0
+        asteroids = {}
+        spawnTimer = 0
+        jetX = love.graphics.getWidth() / 2
+        jetY = love.graphics.getHeight() * 0.75
+    end
+end
+
 
 function love.load()
     love.window.setTitle("Skyloop")
@@ -48,6 +62,8 @@ function love.load()
 end
 
 function love.update(dt)
+    if gameOver then return end
+
     local dx, dy = 0, 0
 
     if love.keyboard.isDown("left", "a") then dx = dx - 1 end
@@ -75,9 +91,16 @@ function love.update(dt)
 
     for i = #asteroids, 1, -1 do
         local asteroid = asteroids[i]
+        local dx = jetX - asteroid.x
+        local dy = jetY - asteroid.y
+        local distance = math.sqrt(dx * dx + dy * dy)
 
         asteroid.y = asteroid.y + asteroid.speed * dt
         asteroid.rotation = asteroid.rotation + asteroid.rotationSpeed * dt
+
+        if distance < (jetSize + asteroid.size) * 0.35 then
+            gameOver = true
+        end
 
         if asteroid.y > love.graphics.getHeight() + asteroid.size then
             score = score + 1
@@ -125,4 +148,18 @@ function love.draw()
     love.graphics.setColor(0, 0, 0)
     love.graphics.setColor(1, 1, 1)
     love.graphics.print("Score : " .. score, 20, 20)
+
+    if gameOver then
+        love.graphics.setColor(0, 0, 0)
+        love.graphics.printf(
+            "GAME OVER",
+            0,
+            love.graphics.getHeight() / 2 - 20,
+            love.graphics.getWidth(),
+            "center"
+        )
+        love.graphics.printf("Press SPACE to restart", 0, love.graphics.getHeight() / 2 + 20, love.graphics.getWidth(), "center")
+        love.graphics.setColor(1, 1, 1)
+    end
+
 end
