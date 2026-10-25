@@ -146,7 +146,6 @@ function love.draw()
     )
 
     love.graphics.setColor(0, 0, 0)
-    love.graphics.setColor(1, 1, 1)
     love.graphics.print("Score : " .. score, 20, 20)
 
     if gameOver then
