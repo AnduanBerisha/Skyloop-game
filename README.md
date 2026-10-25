@@ -1,6 +1,6 @@
 # Skyloop
 
-Skyloop is a small 2D arcade game made with Lua and LÖVE. Pilot your jet, dodge asteroids, and try to get the highest score!
+Skyloop is a small 2D arcade game made with Lua and LÖVE. Pilot your jet, dodge asteroids, and try to get the highest score
 
 ## How to Play
 
