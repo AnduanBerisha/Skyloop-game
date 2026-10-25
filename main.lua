@@ -49,8 +49,6 @@ function love.load()
     jet = love.graphics.newImage("assets/player.png")
     background = love.graphics.newImage("assets/background.jpeg")
 
-    scoreFont = love.graphics.newFont(28)
-
     for i = 1, 6 do
         asteroidImages[i] = love.graphics.newImage(
             "assets/asteroids/asteroid" .. i .. ".png"
@@ -147,6 +145,7 @@ function love.draw()
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.print("Score : " .. score, 20, 20)
+    love.graphics.setColor(1, 1, 1)
 
     if gameOver then
         love.graphics.setColor(0, 0, 0)
