@@ -9,6 +9,7 @@ local scroll = 0
 local asteroidImages = {}
 local asteroids = {}
 local spawnTimer = 0
+local score = 0
 
 local function spawnAsteroid()
     local image = asteroidImages[love.math.random(#asteroidImages)]
@@ -33,6 +34,8 @@ function love.load()
 
     jet = love.graphics.newImage("assets/player.png")
     background = love.graphics.newImage("assets/background.jpeg")
+
+    scoreFont = love.graphics.newFont(28)
 
     for i = 1, 6 do
         asteroidImages[i] = love.graphics.newImage(
@@ -77,6 +80,7 @@ function love.update(dt)
         asteroid.rotation = asteroid.rotation + asteroid.rotationSpeed * dt
 
         if asteroid.y > love.graphics.getHeight() + asteroid.size then
+            score = score + 1
             table.remove(asteroids, i)
         end
     end
@@ -117,4 +121,8 @@ function love.draw()
         jet:getWidth() / 2,
         jet:getHeight() / 2
     )
+
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print("Score : " .. score, 20, 20)
 end
